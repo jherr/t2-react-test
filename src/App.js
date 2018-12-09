@@ -1,42 +1,33 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import Slider from 'react-rangeslider';
 import './App.css';
 import 'react-rangeslider/lib/index.css'
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      position: 90,
-    };
-    this.onChange = this.onChange.bind(this);
-  }
+const App = () => {
+  const [position, setPosition] = useState(90);
 
-  onChange(position) {
-    this.setState({ position });
+  useEffect(() => {
     fetch('/api/position', {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
       },
       body: JSON.stringify({
-        position: this.state.position,
+        position,
       })
     });
-  }
+  });
 
-  render() {
-    return (
-      <div className="App">
-        <Slider
-          min={0}
-          max={180}
-          value={this.state.position}
-          onChange={this.onChange}
-        />
-      </div>
-    );
-  }
-}
+  return (
+    <div className="App">
+      <Slider
+        min={0}
+        max={180}
+        value={position}
+        onChange={setPosition}
+      />
+    </div>
+  );
+};
 
 export default App;
