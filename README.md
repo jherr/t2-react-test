@@ -19,7 +19,7 @@ yarn install
 
 ### Local development
 ```
-yarn
+yarn start
 ```
 
 ### Release build and upload to Tessel 2
